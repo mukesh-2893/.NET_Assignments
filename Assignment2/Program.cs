@@ -13,6 +13,9 @@ namespace Assignment2
             Manager m = new Manager("Sudarshan", 10, 15000, "Quality");
             GeneralManager gm = new GeneralManager("Sudhanshu", 20, 55000, "Design", "promoted");
             CEO c = new CEO("Mukesh", 40, 95000);
+            
+            m.Display();
+            c.Display();
 
             Console.WriteLine(c.EMPNO + " " + c.NAME + " " + c.DEPTNO + " " + c.BASIC + " " + c.CalcNetSalary());
             
@@ -25,7 +28,12 @@ namespace Assignment2
         }
     }
 
-    public abstract class Employee
+    interface IDbFunction
+    {
+        void Display();
+    }
+
+    public abstract class Employee : IDbFunction
     {
         private string Name; 
         public string NAME
@@ -37,10 +45,7 @@ namespace Assignment2
                 else
                     Console.WriteLine("Enter valid Name!!!");
             }
-            get
-            {
-                return Name;
-            }
+            get { return Name; }            
 
         }
 
@@ -48,10 +53,8 @@ namespace Assignment2
         private int EmpNo; 
         public int EMPNO
         {
-            get
-            {
-                return EmpNo;
-            }
+            get { return EmpNo; }
+            
         }
 
         private short DeptNo; 
@@ -64,14 +67,13 @@ namespace Assignment2
                 else
                     Console.WriteLine("DeptNo must be > 0");
             }
-            get
-            {
-                return DeptNo;
-            }
+            get { return DeptNo; }
+            
         }
 
         protected decimal Basic;
         public abstract decimal CalcNetSalary();
+        public abstract void Display();
 
         public Employee(string NAME = "NoName", short DEPTNO = 10)
         {
@@ -94,10 +96,8 @@ namespace Assignment2
                 else
                     Console.WriteLine("Enter valid Designaton!!!");
             }
-            get
-            {
-                return Designation;
-            }
+            get { return Designation; }
+            
 
         }
 
@@ -111,10 +111,8 @@ namespace Assignment2
                     Console.WriteLine("Enater valid salary of manager!!!");
             }
 
-            get
-            {
-                return Basic;
-            }
+            get { return Basic; }
+            
         }
 
         public Manager(string NAME, short DEPTNO, decimal BASIC, string DESGN = "NoDesignation") : base(NAME, DEPTNO)
@@ -132,6 +130,18 @@ namespace Assignment2
         {
             return BASIC + (BASIC / 10);
         }
+
+        public override void Display()
+        {
+            Console.WriteLine("interface called from manager");
+        }
+
+        public Manager()
+        {
+
+        }
+
+        
     }
 
 
@@ -144,10 +154,8 @@ namespace Assignment2
             {
                 Perks = value;
             }
-            get
-            {
-                return Perks;
-            }
+            get { return Perks; }
+            
         }
 
         public new decimal BASIC
@@ -160,10 +168,8 @@ namespace Assignment2
                     Console.WriteLine("Enter valid salary of General Manager");
             }
 
-            get
-            {
-                return Basic;
-            }
+            get { return Basic; }
+            
         }
         public GeneralManager(string NAME, short DEPTNO, decimal BASIC, string DESGN, string PERKS = "NoPerks") : base(NAME, DEPTNO)
         {
@@ -191,10 +197,8 @@ namespace Assignment2
                     Console.WriteLine("Enter valid Salary of CEO!!!");
             }
 
-            get
-            {
-                return Basic;
-            }
+            get { return Basic; }
+            
         }
 
         public CEO(string NAME, short DEPTNO, decimal BASIC) : base(NAME, DEPTNO)
@@ -205,6 +209,14 @@ namespace Assignment2
         public sealed override decimal CalcNetSalary()
         {
             return BASIC + (BASIC / 10);
+        }
+        public CEO()
+        {
+
+        }
+        public override void Display()
+        {
+            Console.WriteLine("interface called from CEO");
         }
     }
 
